@@ -1,11 +1,16 @@
-import { useContext, FC, useState } from 'react';
+import { FC, useState, useContext } from 'react';
 import { TodoList } from './components/TodoList';
 import { Context } from './Store';
+import { IStateTypes } from './types/types';
+
+export const initialState: IStateTypes = {
+  value: "",
+  todoList: []
+};
 
 export const App: FC = () => {
   const [state, dispatch] = useContext(Context);
   const [inputValue, setInputValue] = useState("");
-
   const getValue = (target: string) => {
     setInputValue(target);
   };
@@ -22,6 +27,7 @@ export const App: FC = () => {
         Add Todo
       </button>
       <TodoList />
+      {state.value}
     </>
   );
 };

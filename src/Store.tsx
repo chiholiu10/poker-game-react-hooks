@@ -19,4 +19,4 @@ export const Store: FC = () => {
   );
 };
 
-export const Context = createContext(initialState);
+export const Context = createContext<[IStateTypes, Dispatch<any>]>([initialState, () => { }]);
