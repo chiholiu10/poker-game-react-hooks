@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/App.tsx"],
+  "sourcesContent": ["const App = () => {\n  return (\n    <div>\n      ahha\n    </div>\n  );\n};\n\nexport default App;\n"],
+  "mappings": "MAAA,GAAM,GAAM,IAER,oBAAC,MAAD,KAAK,QAMF,EAAQ",
+  "names": []
+}
