@@ -22,8 +22,15 @@ export const ShuffleCards: FC = () => {
       } else {
         bank.push(handCards[i]);
       }
+      console.log(player, computer, bank);
+      dispatch({
+        type: "calculateCards",
+        playerCards: player,
+        computerCards: computer,
+        bankCards: bank
+      });
     }
-  }, [state.cardShuffled]);
+  }, [dispatch, state.cardShuffled]);
 
   useEffect(() => {
     handOutCards();

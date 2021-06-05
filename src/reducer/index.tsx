@@ -18,6 +18,13 @@ export const reducer = (state: typeof initialState, action: ACTIONTYPE) => {
         ...state,
         cardShuffled: action.randomCards
       };
+    case "calculateCards":
+      return {
+        ...state,
+        playerCards: action.playerCards,
+        computerCards: action.computerCards,
+        bankCards: action.bankCards
+      };
     default:
       return state;
   }

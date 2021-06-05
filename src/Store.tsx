@@ -5,7 +5,10 @@ import { IStateTypes } from './types/types';
 export const initialState: IStateTypes = {
   playerName: "",
   allCards: [],
-  cardShuffled: []
+  cardShuffled: [],
+  playerCards: [],
+  computerCards: [],
+  bankCards: []
 };
 
 export const Store: FC = ({ children }) => {
