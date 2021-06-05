@@ -1,9 +1,7 @@
 
 type ACTIONTYPE =
-  |
-  {
-    type: "getAllCards";
-    allCards: any[];
-  };
+  | { type: "getAllCards"; allCards: Array<any>; }
+  | { type: "addName"; name: string; }
+  | { type: "shuffleCards"; randomCards: Array<any>; };
 
 export type { ACTIONTYPE };

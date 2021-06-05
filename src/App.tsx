@@ -1,20 +1,12 @@
-import { FC, useState, useContext, useEffect, useCallback } from 'react';
-import { TodoList } from './components/TodoList';
+import { FC, useContext, useEffect, useCallback } from 'react';
+import { Player } from './components/Player';
+import { RegisterPage } from './components/RegisterPage';
+import { ScoreBoard } from './components/ScoreBoard';
+import { ShuffleCards } from './components/ShuffleCards';
 import { Context } from './Store';
 
 export const App: FC = () => {
-  const [state, dispatch] = useContext(Context);
-  const [inputValue, setInputValue] = useState("");
-  const getValue = (target: string) => {
-    setInputValue(target);
-  };
-
-  console.log(state);
-
-  const addTodo = () => {
-
-    setInputValue("");
-  };
+  const [, dispatch] = useContext(Context);
 
   const loadCards = useCallback(() => {
     let cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, "B", "V", "H", "A"];
@@ -26,6 +18,7 @@ export const App: FC = () => {
         allCards.push({ "card": cards[i], "suit": suit[j] });
       }
     }
+
     dispatch({ type: "getAllCards", allCards: allCards });
   }, [dispatch]);
 
@@ -35,11 +28,10 @@ export const App: FC = () => {
 
   return (
     <>
-      <input value={inputValue} onChange={(e) => getValue(e.target.value)} />
-      <button onClick={addTodo}>
-        Add Todo
-      </button>
-      <TodoList />
+      <RegisterPage />
+      <ScoreBoard />
+      <Player />
+      <ShuffleCards />
     </>
   );
 };

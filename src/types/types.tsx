@@ -1,12 +1,12 @@
 export interface IStateTypes {
-  allCards: TodoList[];
-  card: string | number;
-  suit: string;
-  id: number;
+  playerName: string;
+  allCards: Cards[];
+  cardShuffled: Cards[];
 }
 
-export interface TodoList {
+export interface Cards {
   id: number;
   suit: string;
   cards: string | number;
 }
+

@@ -3,10 +3,9 @@ import { reducer } from './reducer';
 import { IStateTypes } from './types/types';
 
 export const initialState: IStateTypes = {
+  playerName: "",
   allCards: [],
-  card: "",
-  suit: "",
-  id: 0
+  cardShuffled: []
 };
 
 export const Store: FC = ({ children }) => {

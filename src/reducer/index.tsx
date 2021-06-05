@@ -8,6 +8,16 @@ export const reducer = (state: typeof initialState, action: ACTIONTYPE) => {
         ...state,
         allCards: action.allCards
       };
+    case "addName":
+      return {
+        ...state,
+        playerName: action.name
+      };
+    case "shuffleCards":
+      return {
+        ...state,
+        cardShuffled: action.randomCards
+      };
     default:
       return state;
   }
