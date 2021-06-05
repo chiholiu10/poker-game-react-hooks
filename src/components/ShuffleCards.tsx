@@ -8,15 +8,19 @@ export const ShuffleCards: FC = () => {
     const handCards = state.cardShuffled;
     const player = [];
     const computer = [];
-    const amountCardsHand = 4;
+    const bank = [];
+    const playersCards = 4;
+    const bankFirstHand = 3;
 
-    for (let i = 0; i < amountCardsHand; i++) {
-      if (handCards[i] !== undefined) {
+    for (let i = 0; i < playersCards + bankFirstHand; i++) {
+      if (handCards[i] !== undefined && i < playersCards) {
         if (i % 2 === 0) {
           player.push(handCards[i]);
         } else {
           computer.push(handCards[i]);
         }
+      } else {
+        bank.push(handCards[i]);
       }
     }
   }, [state.cardShuffled]);
@@ -32,7 +36,6 @@ export const ShuffleCards: FC = () => {
       .map((a) => a.value);
 
     dispatch({ type: "shuffleCards", randomCards });
-
   };
 
   return (
