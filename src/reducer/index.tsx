@@ -1,14 +1,15 @@
 import { ACTIONTYPE } from "../actions";
-import { initialState } from "../App";
+import { initialState } from "../Store";
 
 export const reducer = (state: typeof initialState, action: ACTIONTYPE) => {
   switch (action.type) {
-    case "addTodo":
+    case "getAllCards":
       return {
-        value: state.value,
-        todoList: [...state.todoList, action.payload]
+        ...state,
+        allCards: action.allCards
       };
     default:
       return state;
   }
 };
+

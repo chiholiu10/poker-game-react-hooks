@@ -1,4 +1,9 @@
+
 type ACTIONTYPE =
-  | { type: "addTodo"; payload: string; };
+  |
+  {
+    type: "getAllCards";
+    allCards: any[];
+  };
 
 export type { ACTIONTYPE };

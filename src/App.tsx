@@ -1,12 +1,6 @@
-import { FC, useState, useContext } from 'react';
+import { FC, useState, useContext, useEffect, useCallback } from 'react';
 import { TodoList } from './components/TodoList';
 import { Context } from './Store';
-import { IStateTypes } from './types/types';
-
-export const initialState: IStateTypes = {
-  value: "",
-  todoList: []
-};
 
 export const App: FC = () => {
   const [state, dispatch] = useContext(Context);
@@ -15,10 +9,29 @@ export const App: FC = () => {
     setInputValue(target);
   };
 
+  console.log(state);
+
   const addTodo = () => {
-    dispatch({ type: "addTodo", payload: inputValue });
+
     setInputValue("");
   };
+
+  const loadCards = useCallback(() => {
+    let cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, "B", "V", "H", "A"];
+    let suit = ["♦", "♣", "♠", "♥"];
+    let allCards = [];
+
+    for (let i = 0; i < cards.length; i++) {
+      for (let j = 0; j < suit.length; j++) {
+        allCards.push({ "card": cards[i], "suit": suit[j] });
+      }
+    }
+    dispatch({ type: "getAllCards", allCards: allCards });
+  }, [dispatch]);
+
+  useEffect(() => {
+    loadCards();
+  }, [loadCards]);
 
   return (
     <>
@@ -27,7 +40,6 @@ export const App: FC = () => {
         Add Todo
       </button>
       <TodoList />
-      {state.value}
     </>
   );
 };

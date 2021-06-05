@@ -1,22 +1,23 @@
 import { FC, useReducer, createContext, Dispatch } from 'react';
 import { reducer } from './reducer';
-import { IStateTypes } from "./types/types";
-import { App } from './App';
+import { IStateTypes } from './types/types';
 
 export const initialState: IStateTypes = {
-  value: "",
-  todoList: []
+  allCards: [],
+  card: "",
+  suit: "",
+  id: 0
 };
 
-export const Store: FC = () => {
+export const Store: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
 
   return (
     <Context.Provider value={[state, dispatch]}>
-      <App />
+      {children}
     </Context.Provider>
   );
 };
 
 export const Context = createContext<[IStateTypes, Dispatch<any>]>([initialState, () => { }]);
+
