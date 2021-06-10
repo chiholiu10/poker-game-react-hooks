@@ -10,6 +10,6 @@ export interface IStateTypes {
 export interface Cards {
   id: number;
   suit: string;
-  cards: string | number;
+  value: string | number;
 }
 

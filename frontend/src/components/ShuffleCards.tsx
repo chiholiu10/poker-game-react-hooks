@@ -13,18 +13,16 @@ export const ShuffleCards: FC = () => {
     const bankFirstHand = 3;
 
     for (let i = 0; i < playersCards + bankFirstHand; i++) {
-      if (handCards[i] !== undefined && i < playersCards) {
-        if (i % 2 === 0) {
-          player.push(handCards[i]);
-        } else {
-          computer.push(handCards[i]);
-        }
+      if (handCards[i] === undefined) return;
+
+      if (i < playersCards) {
+        (i % 2 === 0) ? player.push(handCards[i]) : computer.push(handCards[i]);
       } else {
         bank.push(handCards[i]);
       }
-      console.log(player, computer, bank);
+
       dispatch({
-        type: "calculateCards",
+        type: "handOutCards",
         playerCards: player,
         computerCards: computer,
         bankCards: bank

@@ -1,4 +1,6 @@
 import { FC, useContext, useEffect, useCallback } from 'react';
+import { Bank } from './components/Bank';
+import { Computer } from './components/Computer';
 import { Player } from './components/Player';
 import { RegisterPage } from './components/RegisterPage';
 import { ScoreBoard } from './components/ScoreBoard';
@@ -7,7 +9,6 @@ import { Context } from './Store';
 
 export const App: FC = () => {
   const [, dispatch] = useContext(Context);
-
   const loadCards = useCallback(() => {
     let cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, "B", "V", "H", "A"];
     let suit = ["♦", "♣", "♠", "♥"];
@@ -15,7 +16,7 @@ export const App: FC = () => {
 
     for (let i = 0; i < cards.length; i++) {
       for (let j = 0; j < suit.length; j++) {
-        allCards.push({ "card": cards[i], "suit": suit[j] });
+        allCards.push({ "value": cards[i], "suit": suit[j] });
       }
     }
 
@@ -29,9 +30,11 @@ export const App: FC = () => {
   return (
     <>
       <RegisterPage />
-      <ScoreBoard />
-      <Player />
       <ShuffleCards />
+      <Bank />
+      <Player />
+      <Computer />
+      <ScoreBoard />
     </>
   );
 };
