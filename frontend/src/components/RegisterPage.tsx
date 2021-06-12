@@ -32,9 +32,7 @@ export const RegisterPage: FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     try {
-      axios.post("http://localhost:8080/app/signup", { data }, {
-        headers
-      });
+      axios.post("http://localhost:8080/app/signup", { data }, { headers });
     } catch (error) {
       console.log(error);
     }

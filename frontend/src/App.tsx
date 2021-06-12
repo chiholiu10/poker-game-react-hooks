@@ -5,6 +5,7 @@ import { Player } from './components/Player';
 import { RegisterPage } from './components/RegisterPage';
 import { ScoreBoard } from './components/ScoreBoard';
 import { ShuffleCards } from './components/ShuffleCards';
+import { Login } from './components/LoginPage';
 import { Context } from './Store';
 
 export const App: FC = () => {
@@ -34,6 +35,7 @@ export const App: FC = () => {
       <Bank />
       <Player />
       <Computer />
+      <Login />
       <ScoreBoard />
     </>
   );
