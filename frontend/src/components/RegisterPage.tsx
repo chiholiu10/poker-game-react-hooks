@@ -29,24 +29,27 @@ export const RegisterPage: FC = () => {
     password: passwordValue
   };
 
-  const registration = () => {
-    axios.post("http://localhost:8080/backend/signup", { data }, {
-      headers
-    }).then((response) => {
-      console.log(response);
-    });
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    try {
+      axios.post("http://localhost:8080/app/signup", { data }, {
+        headers
+      });
+    } catch (error) {
+      console.log(error);
+    }
     setNameValue("");
   };
 
   return (
-    <>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <input value={emailValue} name="username" type="text" onChange={(e) => getEmail(e.target.value)} />
       <input value={nameValue} name="email" type="text" onChange={(e) => getValue(e.target.value)} />
       <input value={passwordValue} name="password" type="password" onChange={(e) => getPassword(e.target.value)} />
-      <button onClick={registration}>
+      <button>
         Confirm Name
     </button>
-    </>
+    </form>
   );
 };
 
