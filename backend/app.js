@@ -7,8 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 app.use(express.urlencoded({ extended: true }));
-const uri = process.env.DATABASE_ACCESS;
-mongoose.connect(uri, {
+mongoose.connect(process.env.DATABASE_ACCESS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   connectTimeoutMS: 30000,

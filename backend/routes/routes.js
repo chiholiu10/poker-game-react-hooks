@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const signUp = require('../models/signup.model');
+const SignUp = require('../models/signup.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const dotenv = require("dotenv");
+dotenv.config();
 
 const generateAccessToken = (username) => {
   return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
@@ -11,9 +13,9 @@ const generateAccessToken = (username) => {
 router.post('/signup', async (request, response) => {
   const body = request.body.data;
   const salt = await bcrypt.genSalt(10);
-  let hashPassword = await bcrypt.hashSync(request.body.data.password, salt);
+  let hashPassword = await bcrypt.hashSync(body.password, salt);
 
-  const signUpUser = new signUp({
+  const signUpUser = new SignUp({
     username: body.username,
     email: body.email,
     password: hashPassword,
@@ -21,28 +23,51 @@ router.post('/signup', async (request, response) => {
 
   signUpUser.save()
     .then(data => {
-      response.json(data);
+      responsestatus(200).json({ message: "successfully registered", data: data });;
     })
     .catch(error => {
-      response.json(error);
+      response.status(200).json({ message: "register not right", error: error });
     });
 });
 
 router.post('/login', async (request, response) => {
-  const User = signUp;
-  const user = await User.findOne({ username: request.body.data.username });
-  const token = generateAccessToken({ username: request.body.data.username });
+  const { username, password } = request.body.data;
+  const User = SignUp;
+  const user = await User.findOne({ username: username });
+  const token = await generateAccessToken({ username: username });
 
   if (user) {
-    const validPassword = await bcrypt.compare(request.body.data.password, user.password);
+    const validPassword = await bcrypt.compare(password, user.password);
     if (validPassword) {
       response.status(200).json({ message: "Valid password", token: token });
     } else {
       response.status(200).json({ message: "Invalid password" });
     }
   } else {
-    response.status(401).json({ error: "User does not exist" });
+    response.status(401).json({ message: "User does not exist" });
   }
 });
+
+router.post('/reset-password', async (request, response) => {
+  const { email } = request.body.data;
+  const User = SignUp;
+  const emailAddress = await User.findOne({ email: email }).then(user => {
+    if (emailAddress !== user.email) {
+      response.status(200), json({ message: "Email doesn't exist" });
+      return;
+    }
+    const secret = JWT_SECRET + user.password; // JWT_SECRET store in .ENV
+    const payload = {
+      email: user.email,
+      id: user.id
+    };
+
+    const token = jwt.sign(payload, secret, { expiresIn: '15m' });
+    const link = `http://localhost:3000/app/reset-password/${user.id}/${token}`;
+    console.log(log);
+  });
+
+});
+
 
 module.exports = router;

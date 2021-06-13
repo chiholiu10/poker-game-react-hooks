@@ -7,6 +7,7 @@ import { ScoreBoard } from './components/ScoreBoard';
 import { ShuffleCards } from './components/ShuffleCards';
 import { Login } from './components/LoginPage';
 import { Context } from './Store';
+import { ResetPassword } from './components/ResetPassword';
 
 export const App: FC = () => {
   const [, dispatch] = useContext(Context);
@@ -37,6 +38,7 @@ export const App: FC = () => {
       <Computer />
       <Login />
       <ScoreBoard />
+      <ResetPassword />
     </>
   );
 };

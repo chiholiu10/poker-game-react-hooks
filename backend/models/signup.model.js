@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const signUp = new mongoose.Schema({
+const Signup = new mongoose.Schema({
   username: {
     type: String,
     required: true
@@ -19,4 +19,4 @@ const signUp = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('myTable', signUp);
+module.exports = mongoose.model('myTable', Signup);

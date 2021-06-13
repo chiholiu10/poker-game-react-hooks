@@ -4,6 +4,7 @@ import axios from 'axios';
 export const Login: FC = () => {
   const [nameValue, setUserName] = useState("");
   const [passwordValue, setPassword] = useState("");
+  // const [loginMessage, setLoginMessage] = useState({});
 
   const getUsername = (username: string) => {
     setUserName(username);
@@ -26,10 +27,14 @@ export const Login: FC = () => {
     e.preventDefault();
     try {
       const message = await axios.post("http://localhost:8080/app/login", { data }, { headers });
-      console.log(message);
+      checkData(message.data);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const checkData = (message: string, token?: string) => {
+    console.log(message, token);
   };
 
   return (
@@ -37,6 +42,7 @@ export const Login: FC = () => {
       <input type="text" name="username" onChange={(e) => getUsername(e.target.value)} />
       <input type="password" name="password" onChange={(e) => getPassword(e.target.value)} />
       <button>Login User</button>
+      {/* <p>{loginMessage}</p> */}
     </form>
   );
 };
