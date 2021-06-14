@@ -51,12 +51,12 @@ router.post('/login', async (request, response) => {
 router.post('/reset-password', async (request, response) => {
   const { email } = request.body.data;
   const User = SignUp;
-  const emailAddress = await User.findOne({ email: email }).then(user => {
-    if (emailAddress !== user.email) {
+  await User.findOne({ email: email }).then(user => {
+    if (email !== user.email) {
       response.status(200), json({ message: "Email doesn't exist" });
       return;
     }
-    const secret = JWT_SECRET + user.password; // JWT_SECRET store in .ENV
+    const secret = process.env.JWT_SECRET + user.password;
     const payload = {
       email: user.email,
       id: user.id
@@ -64,10 +64,32 @@ router.post('/reset-password', async (request, response) => {
 
     const token = jwt.sign(payload, secret, { expiresIn: '15m' });
     const link = `http://localhost:3000/app/reset-password/${user.id}/${token}`;
-    console.log(log);
+    console.log(link);
   });
-
 });
 
+router.get('/reset-password/:id/:token', async (request, response, next) => {
+  const { id, token } = request.params;
+  const User = SignUp;
+  const user = await User.findOne({ _id: id });
 
+  if (id !== user._id) {
+    response.send('Invalid id');
+    return;
+  }
+
+  const secret = process.env.JWT_SECRET + user.password;
+
+  try {
+    const payload = jwt.verify(token, secret);
+    user.password = password;
+    response.send(user);
+    response.send(request.params);
+  } catch (error) {
+    console.log(error.message);
+    response.send(error.message);
+  }
+});
+
+console.log(require('crypto').randomBytes(256).toString('base64'));
 module.exports = router;
