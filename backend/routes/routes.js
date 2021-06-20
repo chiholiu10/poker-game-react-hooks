@@ -63,16 +63,15 @@ router.post('/reset-password', async (request, response) => {
     };
 
     const token = jwt.sign(payload, secret, { expiresIn: '15m' });
-    const link = `http://localhost:3000/app/reset-password/${user.id}/${token}`;
-    console.log(link);
+    const link = `http://localhost:8080/app/reset-password/${user.id}/${token}`;
   });
 });
 
 router.get('/reset-password/:id/:token', async (request, response, next) => {
   const { id, token } = request.params;
+  const { password, password2 } = request.body.data;
   const User = SignUp;
   const user = await User.findOne({ _id: id });
-
   if (id !== user._id) {
     response.send('Invalid id');
     return;
